@@ -1,4 +1,10 @@
 <?php
+    $host = "localhost";
+    $db   = "web";
+    $user = "web";
+    $pass = "1234";
+    session_start();
+    $conn = new mysqli($host, $user, $pass, $db);
 
     if (isset($_POST['username']) && !empty($_POST['username'])){
         $username = $_POST['username'];
@@ -8,14 +14,6 @@
         $password = $_POST['password'];
     }   
 
-    $host = "localhost";
-    $db   = "web";
-    $user = "web";
-    $pass = "1234";
-    session_start();
-    echo "jkfld";
-    $conn = new mysqli($host, $user, $pass, $db);
-    echo "fkldsjl";
     if($conn->connect_error) {
         die("connection failed ". $conn->connect_error);
     }

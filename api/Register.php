@@ -1,15 +1,14 @@
 <?php
-
     $host = "localhost";
     $db   = "web";
     $user = "web";
     $pass = "1234";
     session_start();
     $conn = new mysqli($host, $user, $pass, $db);
+
     if($conn->connect_error) {
         die("connection failed ". $conn->connect_error);
     }
-
     
     if (isset($_POST['username']) && !empty($_POST['username'])){
         $username = $_POST['username'];
@@ -39,6 +38,7 @@
 
     header("location: http://localhost:5173/login?username=$username");
     $statement = "SELECT id, username, email, password FROM profiles where id = (SELECT LAST_INSERT_ID())";
+
     if($res = self::$db->query($statement)) {
         while($row = $res->fetch_assoc()) {
             $myArray[] = $row;
