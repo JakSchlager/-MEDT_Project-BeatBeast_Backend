@@ -26,6 +26,13 @@
         echo "Es wurde kein Emailadresse eingegeben!";
     }
 
+    if(isset($_POST['phoneNr']) && !empty($_POST['phoneNr']) && preg_match('/^[0-9]{10}+$/', $_POST['phoneNr'])) {
+        $phoneNr = $_POST['phoneNr'];
+    }
+    else {
+        Response::error(HttpErrorCodes::HTTP_BAD_REQUEST, "Missing parameters")->send();
+    }
+
     if (isset($_POST['password']) && !empty($_POST['password'])){
         $password = $_POST['password'];
     }   
@@ -33,14 +40,7 @@
         Response::error(HttpErrorCodes::HTTP_BAD_REQUEST, "Missing parameters")->send();
     }
 
-    if(isset($_POST['phoneNr']) && !empty($_POST['phoneNr'])) {
-        if(preg_match('/^[0-9]{10}+$/', $_POST['phoneNr'])) {
-            $phoneNr = $_POST['phoneNr'];
-        }   
-    }
-    else {
-        Response::error(HttpErrorCodes::HTTP_BAD_REQUEST, "Missing parameters")->send();
-    }
+
 
     $statement = "INSERT INTO profiles (username, email, password, phoneNr) VALUES ('$username', '$email', '$password', '$phoneNr');";
     $conn->query($statement);

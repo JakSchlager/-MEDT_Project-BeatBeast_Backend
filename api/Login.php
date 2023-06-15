@@ -6,6 +6,10 @@
     session_start();
     $conn = new mysqli($host, $user, $pass, $db);
 
+    if($conn->connect_error) {
+        die("connection failed ". $conn->connect_error);
+    }
+
     if (isset($_POST['username']) && !empty($_POST['username'])){
         $username = $_POST['username'];
     }
@@ -13,10 +17,6 @@
     if (isset($_POST['password']) && !empty($_POST['password'])){
         $password = $_POST['password'];
     }   
-
-    if($conn->connect_error) {
-        die("connection failed ". $conn->connect_error);
-    }
 
     $_sql = "SELECT * FROM profiles WHERE username='$username' AND password='$password'";
 
