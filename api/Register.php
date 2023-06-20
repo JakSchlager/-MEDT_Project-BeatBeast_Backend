@@ -28,10 +28,12 @@
 
     if(isset($_POST['phoneNr']) && !empty($_POST['phoneNr']) && preg_match('/^[0-9]{10}+$/', $_POST['phoneNr'])) {
         $phoneNr = $_POST['phoneNr'];
+        echo "Hello World";
     }
     else {
-        Response::error(HttpErrorCodes::HTTP_BAD_REQUEST, "Missing parameters")->send();
+        header("location: http://localhost:5173/");
     }
+    
 
     if (isset($_POST['password']) && !empty($_POST['password'])){
         $password = $_POST['password'];
@@ -39,7 +41,17 @@
     else {
         Response::error(HttpErrorCodes::HTTP_BAD_REQUEST, "Missing parameters")->send();
     }
+    if (isset($_POST['password2']) && !empty($_POST['password2'])){
+        $password2 = $_POST['password2'];
+    }   
+    else {
+        Response::error(HttpErrorCodes::HTTP_BAD_REQUEST, "Missing parameters")->send();
+    }
 
+    if ($password != $password2) {
+        header("location: http://localhost:5173/");
+    }
+    
 
 
     $statement = "INSERT INTO profiles (username, email, password, phoneNr) VALUES ('$username', '$email', '$password', '$phoneNr');";
