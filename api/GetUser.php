@@ -11,7 +11,7 @@
         die("connection failed ". $conn->connect_error);
     }
 
-    $statement = "SELECT * FROM profiles WHERE id = ".$_SESSION['user']['id']."";
+    $statement = "SELECT * FROM profiles WHERE userId = ".$_SESSION['user']['userId']."";
     $result = $conn->query($statement);
 
     header("Content-Type: application/json");
